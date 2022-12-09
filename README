@@ -1,0 +1,28 @@
+The contents of this directory contain all of the code 
+necessary to conduct the analyses and generate figures of the manuscript:
+
+Tilsen & Tiede (under review) Looking within events:
+examining internal temporal structure with local relative rate.
+
+REQUIREMENTS:
+
+1) The code in this repository requires the toolbox https://github.com/tilsen/DTWm.git
+	
+2) The function tw_helpers.m must be edited to specify paths to the input data.
+
+3) Input data is available from an OSF repository:
+	https://osf.io/3m6kb/?view_only=577cb04cf536472eb65b10b80bbe21db
+
+GET STARTED:
+
+1) Run the livescript ./examples/local_relative_rate.mlx, or the script 
+	./examples/local_relative_rate_script.m,
+   to see how local relative rate is calculated.
+   
+2) The script tw_worklow.m conducts all of the processing steps. Various functions for
+	data processing are located in the subdirectory ./processing, and additional helper
+	functions are in ./helpers
+
+3) The script tw_figures.m generates all of the figures in the manuscript. 
+	The functions for generating each figure are in the subdirectory ./figure_code
+
