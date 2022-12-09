@@ -3,8 +3,14 @@
 % Linear time warping, also known as "time normalization", is a simple method 
 % for rescaling the temporal coordinate of a signal.
 
-%NOTE: this script should be run with "DTWm" and all of its subdirectories on your path:
-addpath(genpath(['..' filesep '..' filesep '..' filesep 'DTWm']));
+%REQUIRED: this script should be run with its parent directory 
+% and all of the parent's subdirectories on your path:
+addpath(genpath('..')) 
+
+%REQUIRED: the toolbox DTWm (https://github.com/tilsen/DTWm.git)
+if ~contains(path,'DTWm')
+    fprintf('toolbox DTWm required\n'); return;
+end
 % Input
 % There are three inputs:
 %% 
