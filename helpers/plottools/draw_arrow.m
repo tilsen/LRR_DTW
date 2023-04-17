@@ -9,7 +9,7 @@ def_facecolor = [0 0 0];
 
 addRequired(p,'lh',@(x)ishandle(x));
 addOptional(p,'loc',def_loc,@(x)isscalar(x));
-addOptional(p,'sz',def_sz,@(x)isscalar(x));
+addOptional(p,'sz',def_sz,@(x)isscalar(x) || isvector(x));
 addParameter(p,'edgecolor',def_edgecolor);
 addParameter(p,'facecolor',def_facecolor);
 
@@ -49,7 +49,7 @@ arxy = XY(1,:) + vs;
 PP = [0 2; -1 0; 0 0.5; 1 0];
 
 %resize
-PP = PP*sz;
+PP = PP.*sz;
 
 %rotate
 PP = PP*[cos(th) -sin(th); sin(th) cos(th)];

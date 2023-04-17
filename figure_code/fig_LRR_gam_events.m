@@ -175,7 +175,7 @@ axrescale(ax(1:4,:),0,0.05);
 
 xlabel(axc(end,1:2),'time (relative to anchorpoint)','fontsize',h.fs(3));
 
-ylabel(ax(1,1),'LA','FontSize',h.fs(3),'rotation',0,'hori','right','verti','mid');
+ylabel(ax(1,1),'LC','FontSize',h.fs(3),'rotation',0,'hori','right','verti','mid');
 ylabel(ax(2,1),'TBy','FontSize',h.fs(3),'rotation',0,'hori','right','verti','mid');
 ylabel(ax(3,1),'LRR gsd','fontsize',h.fs(2));
 ylabel(ax(4,1),'\Delta LRR gsd','fontsize',h.fs(2));
@@ -284,7 +284,7 @@ for i=1:length(conds)
         LL = squeeze(rx.mu(1,chix({'LLx' 'LLy'}),:));
         UL = squeeze(rx.mu(1,chix({'ULx' 'ULy'}),:));
         x = -sqrt(sum((LL-UL).^2));
-        T(end+1).lab = 'LA';
+        T(end+1).lab = 'LC';
         T(end).x = x-mean(x);
         T(end).panix = 1;
     end
