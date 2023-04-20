@@ -100,8 +100,8 @@ for i=1:size(axm,1)
 end
 
 set(ax(2),'Visible','off');
-xlabh = xlabel(ax(2),'reference signal rate','fontsize',h.fs(3),'Visible','on');
-ylabh = ylabel(ax(2),'query signal rate','fontsize',h.fs(3),'Visible','on');
+xlabh = xlabel(ax(2),'target signal rate','fontsize',h.fs(3),'Visible','on');
+ylabh = ylabel(ax(2),'comparison signal rate','fontsize',h.fs(3),'Visible','on');
 
 xlabh.Position(2) = xlabh.Position(2)-0.025;
 ylabh.Position(1) = ylabh.Position(1)-0.025;
