@@ -15,8 +15,11 @@ switch(xy)
         if length(ax)>1
             lims = get(ax,'ylim');  limsy = minmax(reshape(vertcat(lims{:}),1,[]));
             lims = get(ax,'xlim');  limsx = minmax(reshape(vertcat(lims{:}),1,[]));
+            lims = [limsx; limsy];
+        else
+            lims = [get(ax,'xlim'); get(ax,'ylim')];
         end
-        lims = [limsx; limsy];
+        
 end
 
 lims = double(lims);
