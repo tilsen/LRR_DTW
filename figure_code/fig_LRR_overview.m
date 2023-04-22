@@ -49,6 +49,10 @@ axes(ax(1));
 for i=1:N
     plot(2*i+ X{i},'color',colors(i,:),'linew',3); hold on;
 end
+axis tight;
+set(gca,'Visible','off');
+adjheight(gca,-0.1);
+shiftposy(gca,0.1);
 
 axes(ax(2));
 axs = stfig_subaxpos(ax(2),[N+2 N+1],[0 0 0 0 0 0]);
@@ -59,7 +63,7 @@ maxlen = max(cellfun('length',LRRs),[],'all');
 for a=1:N
     for b=1:N
         axes(axs(a,b));
-        plot(LRRs{a,b},'color',colors(a,:),'linew',3); hold on;
+        plot(LRRs{a,b},'color',colors(b,:),'linew',3); hold on;
         plot([1 maxlen],[1 1],'k--');
     end
 end
@@ -86,41 +90,105 @@ for i=1:length(AXS)
     axrescale(AXS{i},0.025,0.035);
 end
 
-shiftposy(axs(end-1:end,:),-0.015)
+shiftposy(axs(end-1:end,:),-0.15)
 shiftposy(axs(end,:),-0.015)
 adjheight(axs(end-1:end,:),0.01)
 shiftposx(axs(:,end),0.01);
+shiftposy(axs,-0.05);
 delete(axs(1:end-2,end));
+
 
 %
 axes(ax(3));
 imagesc(mapinfo.costMatrix); hold on;
 colormap(viridis(1000)); 
 plot(mapinfo.index2s,mapinfo.index1s,'w-','linew',3)
-set(gca,'YDir','normal');
+set(gca,'YDir','normal','XTickLabel',[],'YTickLabel',[]);
 adjwidth(ax(3),-0.1)
-shiftposx(ax(3),0.125);
+shiftposx(ax(3),0.05);
+
 
 %
 axbak = stbgax;
-PP = [objpos(axs(1,1),'topleft'); objpos(axs(end-2,1),'botleft')];
-PP(:,1) = PP(:,1)-0.02;
-plot(PP(:,1),PP(:,2),'k','linew',2);
-text(PP(1,1),mean(PP(:,2)),'LRR timeseries array', ...
-    'rotation',90,'hori','center','verti','bot','fontsize',h.fs(2));
 
-PP = objpos(axs(end-1,1),'left')-[0.01 0];
-text(PP(1),PP(2),{'geometric mean','(LRR-gm)'},'hori','right','fontsize',h.fs(3));
+PP{1} = [objpos(axs(1,1),'topleft'); objpos(axs(end-2,1),'botleft')] - [0.01 0];
+PP{2} =  [objpos(ax(1),'topleft'); objpos(ax(1),'botleft')];
+PP{3} =  [objpos(ax(1),'botleft'); objpos(ax(1),'botright')] - [0 0.02];
+PP{4} =  [objpos(axs(end-2,1),'bl'); objpos(axs(end-2,end-1),'br')];
 
-PP = objpos(axs(end,1),'left')-[0.01 0];
-text(PP(1),PP(2),{'geometric stdev','(LRR-gsd)'},'hori','right','fontsize',h.fs(3));
+labs = {'array of LRR timeseries'
+    'set of input signals'
+    ''
+    ''};
 
-pp = objpos(ax(3),'top');
-text(pp(1),pp(2),'DTW distance matrix','hori','center','verti','bot','fontsize',h.fs(2));
-pp = objpos(ax(3),'c');
-text(pp(1),pp(2),'warping curve', ...
-    'hori','center','verti','bot','fontsize',h.fs(2),'color','w','rotation',40);
+oo = [0 0 1 1];
+for i=1:length(PP)
+    pp = PP{i};
+    bh(i) = drawbrace(pp(2,:),pp(1,:),0.0075,'color','k','linew',1);
+    switch(oo(i))
+        case 0
+            th(i) = text(min(bh(i).XData),mean(bh(i).YData),labs{i}, ...
+                'hori','center','verti','bot','fontsize',h.fs(2),'rotation',90);
+        case 1
+            th(i) = text(mean(bh(i).XData),min(bh(i).YData), labs{i},...
+                'hori','center','verti','top','fontsize',h.fs(2),'rotation',0);
+    end
+end
 
+labs = {{'geometric mean','(LRR-gm)'}
+    {'geometric st.dev','(LRR-gsd)'}
+    'warping curve'
+    'apply DTW to each pair of inputs'
+    {'calculate LRR','from warping curve'}
+    'calculate marginal geometric means and st.devs'
+    {'grand','mean/stdev'}};
+
+PX(1,:) = objpos(axs(end-1,1),'left')-[0.01 0];
+PX(2,:) = objpos(axs(end,1),'left')-[0.01 0];
+PX(3,:) = objpos(ax(3),'c');
+PX(4,:) = mean([objpos(ax(1),'bot'); objpos(ax(3),'top')]);
+PX(5,:) = mean([objpos(th(1),'left'); objpos(ax(3),'right')]);
+PX(6,:) = [mean(bh(end).XData) min(bh(end).YData)-0.05];
+PX(7,:) = objpos(axs(end-1,end),'top');
+
+for i=1:size(PX,1)
+    thx(i) = text(PX(i,1),PX(i,2),labs{i},'fontsize',h.fs(3));
+end
+set(thx(1:2),'hori','right');
+set(thx(3),'hori','center','verti','bot','rotation',35,'color','w');
+set(thx(4:6),'hori','center','verti','mid','backgroundcolor','w');
+set(thx(7),'hori','center','verti','bot','fontsize',h.fs(end));
+
+%arrows
+PA{1} = [objpos(ax(1),'bot')-[0 0.05]; objpos(ax(3),'top')+[0 0.02]];
+PA{2} = [objpos(ax(3),'r')+[0.01 0]; objpos(th(1),'left')+[-0.01 0]];
+PA{3} = [objpos(axs(end-2,round(end/2)),'bot')-[0 0.02]; objpos(axs(end-1,round(end/2)),'top')+[0 0.01]];
+
+for i=1:length(PA)
+    pp = PA{i};
+    arrow(pp(1,:),pp(2,:),'color','k','linew',2);
+end
+   
+LP = [objpos(ax(1),'topleft') - [0.01 -0.025];
+    objpos(thx(4),'left') - [0.015 0];
+    objpos(thx(5),'top') - [0 -0.015];
+    objpos(axs(1,1),'topleft') - [0.01 -0.025];
+    objpos(axs(end-1,1),'topleft') - [0.01 -0.025]];
+
+labs = {'i','ii','iii','iv','v'};
+for i=1:size(LP,1)
+    text(LP(i,1),LP(i,2),labs{i}, ...
+        'fontweight','bold','hori','center','fontsize',h.fs(2));
+end
+
+thx(4).Position(3) = 1;
+thx(5).Position(3) = 1;
+thx(6).Position(3) = 1;
+
+
+%%
+set(gcf,'InvertHardcopy','off','color','w');
+h.printfig(mfilename);
 
 end
 

@@ -182,7 +182,7 @@ stfig_panlab(axlab,labs, ...
     'hori','left','verti','bot','xoff',0.02,'fontsize',h.fs(2),'fontweight','normal');
 
 axes(ax(4));
-plot(xlim,[1 1],':','linew',2,'color',[.5 .5 .5]);
+plot(xlim,[1 1],'-','linew',1,'color',[.5 .5 .5]);
 
 %%
 h.printfig(mfilename);
