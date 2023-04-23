@@ -15,14 +15,26 @@ REQUIREMENTS:
 
 GET STARTED:
 
-1) Run the livescript ./examples/local_relative_rate.mlx, or the script 
+1) download DTWm-main.zip and LRR_DTW-main.zip (this repository) from https://github.com/tilsen
+
+2) extract DTWm-main.zip and LRR_DTW-main.zip into a folder
+
+in Matlab:
+
+3) set the working directory to the folder where you extracted the repositories
+
+4) execute addpath(genpath(pwd))
+
+5) if running on other than Windows, cd into DTWm-main and run mex dtwm_costmatrix.c
+
+6) Run the livescript ./examples/local_relative_rate.mlx, or the script 
 	./examples/local_relative_rate_script.m,
    to see how local relative rate is calculated.
    
-2) The script tw_worklow.m conducts all of the processing steps. Various functions for
+7) The script tw_worklow.m conducts all of the processing steps. Various functions for
 	data processing are located in the subdirectory ./processing, and additional helper
 	functions are in ./helpers
 
-3) The script tw_figures.m generates all of the figures in the manuscript. 
+8) The script tw_figures.m generates all of the figures in the manuscript. 
 	The functions for generating each figure are in the subdirectory ./figure_code
 
