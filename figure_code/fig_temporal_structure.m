@@ -9,7 +9,7 @@ params = {'n',8};
 mean_type = 'geometric'; sdf = 'gsd'; muf = 'gm';
 %mean_type = 'harmonic'; sdf = 'hsd'; muf = 'hm';
 
-S = test_signals('growth_decay_phases',params);
+S = test_signals('growth_decay_phases2',params);
 X = table(S.X',S.rates',S.t','VariableNames',{'X','rates','t'});
 
 overwrite = false;
