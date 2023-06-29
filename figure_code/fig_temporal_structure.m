@@ -128,8 +128,8 @@ for i=1:size(axm,1)
     xlabel(axm(1,i),sprintf('%1.0f',i), ...
         'rotation',0,'hori','center','fontsize',h.fs(end),'verti','bot');    
 end
-xlabh = xlabel(ax(2),'reference signal','fontsize',h.fs(3),'Visible','on');
-ylabh = ylabel(ax(2),'query signal','fontsize',h.fs(3),'Visible','on');
+xlabh = xlabel(ax(2),'target signal','fontsize',h.fs(3),'Visible','on');
+ylabh = ylabel(ax(2),'comparison signal','fontsize',h.fs(3),'Visible','on');
 
 xlabh.Position(2) = xlabh.Position(2)-0.035;
 ylabh.Position(1) = ylabh.Position(1)+0.035;

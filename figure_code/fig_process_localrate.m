@@ -70,7 +70,9 @@ th(end+1) = text(t(ixo),y(ixo),'constant-rate process','hori','left','verti','bo
 %%
 axes(ax(2));
 
-bh(2) = drawbrace([t(ix+1) theta(ix)-yo],[t(ix) theta(ix)-yo],0.0035,'color','k','linew',1);
+xo = mean(diff(t))*0.25;
+
+bh(2) = drawbrace([t(ix+1)+xo theta(ix+1)],[t(ix+1)+xo theta(ix)],0.0015,'color','k','linew',1);
 
 str = 'process state:';
 th(end+1) = text(xot,max(ylim),str,'hori','left','verti','top','fontsize',h.fs(2));
@@ -78,8 +80,8 @@ th(end+1) = text(xot,max(ylim),str,'hori','left','verti','top','fontsize',h.fs(2
 str = '$\ \ \theta(t) = \theta(t-\Delta t)+r(t)\Delta t$';
 th(end+1) = text(xof(th(end)),max(ylim),str,'hori','left','verti','top','fontsize',h.fs(2),'interp','latex');
 
-str = ['$\Delta \tilde{\theta}(t) = \frac{1}{2}(-\log{y(t+\Delta t)}+\log{y(t)}) = ' num2str(dstate,'%1.3f') '$'];
-th(end+1) = text(t(ix)-0.025, min(bh(2).YData)-0.025,str,'FontSize',h.fs(2)-2,'interp','latex','verti','top');
+str = {'$\Delta \tilde{\theta}(t)$','$ = \frac{1}{2}(-\log{y(t+\Delta t)}+\log{y(t)})$',['$=' num2str(dstate,'%1.3f') '$']};
+th(end+1) = text(t(ix+1)+2*xo, max(bh(2).YData),str,'FontSize',h.fs(2)-2,'interp','latex','verti','top');
 
 %%
 
